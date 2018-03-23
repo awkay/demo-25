@@ -1,0 +1,23 @@
+{:lein   {:profile "cljs"}
+ :nrepl  {:port 9000}
+ :builds {:main  {:target     :browser
+                  :output-dir "resources/public/js/main"
+                  :asset-path "/js/main"
+
+                  :modules    {:app {:entries [app.client]}}
+
+                  :devtools   {:after-load app.client/start
+                               :preloads   [app.development-preload]
+                               :http-root  "resources/public"
+                               :http-port  8020}}
+
+          :cards {:target           :browser
+                  :output-dir       "resources/public/js/cards"
+                  :asset-path       "/js/cards"
+                  :compiler-options {:devcards true}
+                  :modules          {:main
+                                     {:entries [app.cards]}}
+                  :devtools         {:after-load app.cards/refresh
+                                     :preloads   [app.development-preload]
+                                     :http-root  "resources/public"
+                                     :http-port  8023}}}}
